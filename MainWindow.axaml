@@ -5,5 +5,16 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AutoClicker.MainWindow"
         Title="AutoClicker">
-    Welcome to Avalonia!
+
+
+    <StackPanel Margin="20">
+    
+            <TextBlock Text="Interval (ms)" />
+            <TextBox Name="IntervalBox" Text="10" Width="100" />
+
+            <Button Name="StartButton" Content="Start" Margin="0,20,0,0"/>
+            <Button Name="StopButton" Content="Stop" />   
+        
+    </StackPanel>
+
 </Window>
