@@ -5,7 +5,7 @@ namespace AutoClicker;
 
 public partial class MainWindow : Window
 {
-     // Imports
+    // Imports
     [DllImport("user32.dll")]
     static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, int dwExtraInfo); // mouse click
 
@@ -29,10 +29,9 @@ public partial class MainWindow : Window
 
     private void StartAutoClicker()
     {
-        // Lancer la boucle infinie dans un thread séparé
         System.Threading.Tasks.Task.Run(() =>
         {
-            while (true) // main loop
+            while (true)
             {
                 if (GetAsyncKeyState(HOTKEY) < 0) // check if hotkey is pressed
                 {
@@ -50,9 +49,46 @@ public partial class MainWindow : Window
         });
     }
 
+    private void InitializeAutoClicker() // initialisation des boutons Start et Stop
+    {
+        // Lancer le clic automatique
+        StartAutoClicker();
+
+        // Update interval when text changes
+        if (IntervalBox != null)
+        {
+            IntervalBox.TextChanged += (_, __) =>
+            {
+                if (int.TryParse(IntervalBox.Text, out int interval))
+                {
+                    clickInterval = interval;
+                }
+            };
+        }
+
+        // Vérifie que StartButton est non null
+        if (StartButton != null)
+        {
+            StartButton.Click += (_, __) =>
+            {
+                enableClicker = true;
+            };
+        }
+
+        if (StopButton != null)
+        {
+            StopButton.Click += (_, __) =>
+            {
+                enableClicker = false;
+            };
+        }
+    }
+
     public MainWindow()
     {
         InitializeComponent();
-        StartAutoClicker();
+        InitializeAutoClicker();
     }
 }
+
+
