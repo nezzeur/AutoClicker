@@ -71,3 +71,4 @@ D:\VsCODE\AutoClicker\obj\Debug\net9.0\refint\AutoClicker.dll
 D:\VsCODE\AutoClicker\obj\Debug\net9.0\AutoClicker.pdb
 D:\VsCODE\AutoClicker\obj\Debug\net9.0\AutoClicker.genruntimeconfig.cache
 D:\VsCODE\AutoClicker\obj\Debug\net9.0\ref\AutoClicker.dll
+D:\VsCODE\AutoClicker\obj\Debug\net9.0\AutoClicker.sourcelink.json
