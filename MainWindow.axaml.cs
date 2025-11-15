@@ -20,7 +20,6 @@ public partial class MainWindow : Window
 
     public bool enableClicker = false; // enable/disable auto clicker
     public int clickInterval = 5; // interval between clicks in milliseconds
-    private bool isRunning = false;
 
     void MouseClick() // performs a mouse click
     {
@@ -30,12 +29,9 @@ public partial class MainWindow : Window
 
     private void StartAutoClicker()
     {
-        if (isRunning) return;
-        isRunning = true;
-
         System.Threading.Tasks.Task.Run(() =>
         {
-            while (isRunning)
+            while (true)
             {
                 if (GetAsyncKeyState(HOTKEY) < 0) // check if hotkey is pressed
                 {
@@ -53,21 +49,29 @@ public partial class MainWindow : Window
         });
     }
 
-        private void InitializeAutoClicker() // initialisation des boutons Start et Stop
+    private void InitializeAutoClicker() // initialisation des boutons Start et Stop
     {
         // Lancer le clic automatique
         StartAutoClicker();
+
+        // Update interval when text changes
+        if (IntervalBox != null)
+        {
+            IntervalBox.TextChanged += (_, __) =>
+            {
+                if (int.TryParse(IntervalBox.Text, out int interval))
+                {
+                    clickInterval = interval;
+                }
+            };
+        }
 
         // Vérifie que StartButton est non null
         if (StartButton != null)
         {
             StartButton.Click += (_, __) =>
             {
-                enableClicker = true; // toggle via bouton
-                if (IntervalBox != null && int.TryParse(IntervalBox.Text, out int interval))
-                {
-                    clickInterval = interval;
-                }
+                enableClicker = true;
             };
         }
 
@@ -85,8 +89,6 @@ public partial class MainWindow : Window
         InitializeComponent();
         InitializeAutoClicker();
     }
-
-
 }
 
 
